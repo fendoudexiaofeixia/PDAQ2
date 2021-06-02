@@ -6,8 +6,8 @@ from PDAQ_hdtest.models import PDAQ_hd
 
 def hwtest_list(request, pdaq_id=None):
     pdaq = PDAQ_hd.get_by_all()
-    print('*********************', pdaq)
+    # print('*********************', pdaq)
     context = {
         'pdaq': pdaq,
     }
-    return render(request, '', context=context)
+    return render(request, 'AdminLTE/index.html', context=context)

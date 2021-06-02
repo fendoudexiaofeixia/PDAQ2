@@ -26,6 +26,8 @@ from PDAQ_hdtest.views import hwtest_list
 urlpatterns = [
     path('admin/', xadmin.site.urls),
     path(r'', hwtest_list),
+    # re_path(r"^static/(?P<path>.*)$", serve,
+    #      {'document_root': settings.STATIC_ROOT}, name='static'),  # 解决静态文件加载失败问题
     re_path(r"media/(?P<path>.*)$", serve, {'document_root': settings.MEDIA_ROOT}),
 ]
-urlpatterns += staticfiles_urlpatterns()
+# urlpatterns += staticfiles_urlpatterns()
