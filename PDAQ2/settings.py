@@ -27,9 +27,17 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*', ]
 
+# 允许所有ip访问
+# ALLOWED_HOSTS = ['*']
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
+# 允许所有的请求头
+CORS_ALLOW_HEADERS = ('*',)
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
+    'corsheaders',
     'django_cleanup.apps.CleanupConfig',
     'dal',  # 自动补全插件
     # 'PIL',
@@ -46,16 +54,23 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
 
+]
+'''# 'corsheaders.middleware.CorsMiddleware',  
+    # 因为跨域请求的问题安装了这个中间件，但是为什么关闭它之后，请求突然成功了？？？？？？？  真是让人无语！！！！   
+    # 初步判断应该是中间件对django版本有限制'''
+# CORS_ORIGIN_ALLOW_ALL = True
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    # 'middleware.crossdomainxhr.XsSharing',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'PDAQ2.urls'
@@ -63,7 +78,7 @@ ROOT_URLCONF = 'PDAQ2.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': ['cctest-developer/dist']
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -126,17 +141,15 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static',)
+    'cctest-developer/dist/static/'
 ]
-# 设置图片等静态文件的路径
-# STATICFILES_DIRS = (
-#     ('css', os.path.join(STATIC_ROOT, 'css').replace('\\', '/')),
-#     ('js', os.path.join(STATIC_ROOT, 'js').replace('\\', '/')),
-#     ('images', os.path.join(STATIC_ROOT, 'images').replace('\\', '/')),
-#     ('upload', os.path.join(STATIC_ROOT, 'upload').replace('\\', '/')),
-# )
 
 '''配置文件上传路径'''
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 '''配置访问文件的URL，注意此处与URL.py中的关系'''
 MEDIA_URL = '/media/'
+''' 跨域配置问题  结合上述中间件使用'''
+XS_SHARING_ALLOWED_ORIGINS = 'http://127.0.0.1:8080'
+XS_SHARING_ALLOWED_METHODS = ['POST', 'GET']
+XS_SHARING_ALLOWED_HEADERS = ['Content-Type', '*']
+XS_SHARING_ALLOWED_CREDENTIALS = 'true'

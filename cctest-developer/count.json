@@ -1,0 +1,208 @@
+{
+	"test_platform": "TX2",
+	"test_code_version": "v2.0",
+	"test_date": "2020-02-19 19:22:33",
+	"program": "CalmCar",
+	"program_version": "2.2.3-alpha2",
+	"test_items": [
+		{
+		"test_item": "od_distance_use_kl",
+		"total": 100,
+		"passed": 80,
+		"failed": 18,
+		"broken": 2,
+		"features": [{
+			"feature": "dynamic_straight_0",
+			"passed": 1,
+			"failed": 2,
+			"broken": 0
+		},{
+			"feature": "dynamic_straight_1",
+			"passed": 1,
+			"failed": 2,
+			"broken": 0
+		}],
+		"suites": [{
+			"suite": "car",
+			"passed": 1,
+			"failed": 2,
+			"broken": 0
+		},{
+			"suite": "bus",
+			"passed": 1,
+			"failed": 2,
+			"broken": 0
+		}],
+		"accuracy": [{
+			"class_name": "car",
+			"data": [{
+					"title_name": "x_abs_err",
+					"threshold": 2,
+					"remark": {
+						"max_err": 0.0,
+						"case_name": "test_001"
+					},
+					"total": 3,
+					"passed": 3,
+					"failed": 0
+				},
+				{
+					"title_name": "y_rel_abs_err",
+					"threshold": 0.3,
+					"remark": {
+						"max_err": 0.0,
+						"case_name": "test_001"
+					},
+					"total": 3,
+					"passed": 3,
+					"failed": 0
+				},
+				{
+					"title_name": "横向测距结果",
+					"threshold": "(-1.5,1.5]",
+					"remark": {
+						"max_err": 0.0,
+						"case_name": "test_001"
+					},
+					"total": 1,
+					"passed": 0,
+					"failed": 1
+				},
+				{
+					"title_name": "纵向测距结果",
+					"threshold": "(100,+oo)",
+					"remark": {
+						"max_err": 0.0,
+						"case_name": "test_001"
+					},
+					"total": 2,
+					"passed": 0,
+					"failed": 2
+				},
+				{
+					"title_name": "纵向测距结果",
+					"threshold": "(10,30]",
+					"total": 1,
+					"passed": 1,
+					"failed": 0,
+					"remark": {
+						"max_err": 0.0,
+						"case_name": "test_002"
+					}
+				},
+				{
+					"title_name": "纵向测距结果",
+					"threshold": "(60,100]",
+					"total": 1,
+					"passed": 1,
+					"failed": 0,
+					"remark": {
+						"max_err": 0.0,
+						"case_name": "test_002"
+					}
+				}
+			]
+		}]
+	},
+	{
+		"test_item": "od_angle",
+		"total": 100,
+		"passed": 80,
+		"failed": 18,
+		"broken": 2,
+		"features": [{
+			"feature": "dynamic_straight_0",
+			"passed": 1,
+			"failed": 2,
+			"broken": 0
+		},{
+			"feature": "dynamic_straight_1",
+			"passed": 1,
+			"failed": 2,
+			"broken": 0
+		}],
+		"suites": [{
+			"suite": "car",
+			"passed": 1,
+			"failed": 2,
+			"broken": 0
+		},{
+			"suite": "bus",
+			"passed": 1,
+			"failed": 2,
+			"broken": 0
+		}],
+		"accuracy": [{
+			"class_name": "car",
+			"data": [{
+					"title_name": "x_abs_err",
+					"threshold": 2,
+					"remark": {
+						"max_err": 0.0,
+						"case_name": "test_001"
+					},
+					"total": 3,
+					"passed": 3,
+					"failed": 0
+				},
+				{
+					"title_name": "y_rel_abs_err",
+					"threshold": 0.3,
+					"remark": {
+						"max_err": 0.0,
+						"case_name": "test_001"
+					},
+					"total": 3,
+					"passed": 3,
+					"failed": 0
+				},
+				{
+					"title_name": "横向测距结果",
+					"threshold": "(-1.5,1.5]",
+					"remark": {
+						"max_err": 0.0,
+						"case_name": "test_001"
+					},
+					"total": 1,
+					"passed": 0,
+					"failed": 1
+				},
+				{
+					"title_name": "纵向测距结果",
+					"threshold": "(100,+oo)",
+					"remark": {
+						"max_err": 0.0,
+						"case_name": "test_001"
+					},
+					"total": 2,
+					"passed": 0,
+					"failed": 2
+				},
+				{
+					"title_name": "纵向测距结果",
+					"threshold": "(10,30]",
+					"total": 1,
+					"passed": 1,
+					"failed": 0,
+					"remark": {
+						"max_err": 0.0,
+						"case_name": "test_002"
+					}
+				},
+				{
+					"title_name": "纵向测距结果",
+					"threshold": "(60,100]",
+					"total": 1,
+					"passed": 1,
+					"failed": 0,
+					"remark": {
+						"max_err": 0.0,
+						"case_name": "test_002"
+					}
+				}
+			]
+		}]
+	}
+
+]
+}

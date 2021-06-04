@@ -1,6 +1,8 @@
 from django.db import models
 
 # Create your models here.
+from django.db.models import Count
+
 from django.utils.html import format_html
 
 
@@ -48,7 +50,21 @@ class PDAQ_hd(models.Model):
     def get_by_all():
         try:
             pdaq = PDAQ_hd.objects.all()
-            print(pdaq.count())
+            # print(pdaq.count())
         except PDAQ_hd.DoesNotExist:
             pdaq = None
         return pdaq
+
+    @classmethod
+    def get_pdaq_message(cls):
+        try:
+            '''统计数据库中的设备总数'''
+            pdaq_number = cls.objects.count()
+            '''获取测试结果属性的个数'''
+            # test_num = cls.objects.aggregate(test_result=Count('test_result', distinct=True))
+            pass_num = cls.objects.filter(test_result='合格').count()
+        except PDAQ_hd.DoesNotExist:
+            pdaq_number = 0
+            # test_num = 0
+            pass_num = 0
+        return pdaq_number, pass_num

@@ -1,0 +1,92 @@
+// global transition css
+
+.form-fadeIn-enter-active,
+.form-fadeIn-leave-active {
+  transition: all 1s;
+}
+.form-fadeIn-enter,
+.form-fadeIn-leave-active {
+  transform:
+          translate3d(0, -20px, 0);
+  opacity: 0;
+}
+.form-fade-enter-active,
+.form-fade-leave-active {
+  transition: all 1s;
+}
+.form-fade-enter,
+.form-fade-leave-active {
+  transform:
+          translate3d(0, -50px, 0);
+  opacity: 0;
+}
+
+/* fade */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.28s;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+
+/* fade-transform */
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+  transition: all .5s;
+}
+
+.fade-transform-enter {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.fade-transform-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+/* breadcrumb transition */
+.breadcrumb-enter-active,
+.breadcrumb-leave-active {
+  transition: all .5s;
+}
+
+.breadcrumb-enter,
+.breadcrumb-leave-active {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.breadcrumb-move {
+  transition: all .5s;
+}
+
+.breadcrumb-leave-active {
+  position: absolute;
+}
+
+.roter-viewIn-enter-active,
+.roter-viewIn-leave-active {
+  transition: all .2s;
+}
+.roter-viewIn-enter,
+.roter-viewIn-leave-active {
+  transform:
+          translate3d(20px, 0px, 0);
+  opacity: 0;
+
+}
+.roter-view-enter-active,
+.roter-view-leave-active {
+  transition: all .2s;
+
+}
+.roter-view-enter,
+.roter-view-leave-active {
+  transform:
+          translate3d(20px, 0px, 0);
+  opacity: 0;
+}

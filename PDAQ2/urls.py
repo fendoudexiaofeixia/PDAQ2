@@ -21,13 +21,16 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from django.contrib import staticfiles
 from PDAQ2 import settings
+from PDAQ_hdtest.apis import PDAQ_list, PDAQList, get_nav
 from PDAQ_hdtest.views import hwtest_list
+from django.views.generic.base import TemplateView
 
 urlpatterns = [
     path('admin/', xadmin.site.urls),
-    path(r'', hwtest_list),
-    # re_path(r"^static/(?P<path>.*)$", serve,
-    #      {'document_root': settings.STATIC_ROOT}, name='static'),  # 解决静态文件加载失败问题
+    # path(r'program/get_records', hwtest_list, name='test_list'),
+    re_path(r'^api/pdaq', PDAQ_list, name='pdaq_list'),
+    # path(r'model/get_nav', PDAQList.as_view()),
+    # re_path(r'^api/pdaq', PDAQList.as_view(), name='pdaq_list'),
     re_path(r"media/(?P<path>.*)$", serve, {'document_root': settings.MEDIA_ROOT}),
 ]
-# urlpatterns += staticfiles_urlpatterns()
+urlpatterns += staticfiles_urlpatterns()

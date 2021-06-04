@@ -1,0 +1,39 @@
+@font-color:#00FFFF;
+@error-color:#FF0000;
+@mileage-color:#47F7C9;
+@white:#fff;
+
+.color(@color){
+    color: @color;
+}
+
+.back(@url){
+    background:url(@url);
+    background-size: 100% 100% ;
+    // background-repeat: no-repeat;
+    background-position: 100% 100%;
+}
+
+.font(@size){
+    font-size: @size;
+}
+
+.center-flex{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// .component {
+//     width: 300px;
+//     @media (min-width: 768px) {
+//       width: 600px;
+//       @media  (min-resolution: 192dpi) {
+//         background-image: url(/img/retina2x.png);
+//       }
+//     }
+//     @media (min-width: 1280px) {
+//       width: 800px;
+//     }
+//   }
+  
