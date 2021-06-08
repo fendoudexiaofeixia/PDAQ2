@@ -9,7 +9,7 @@
                 unique-opened
              >
                 <template v-for="(item,index) in menu">
-                    <template v-if="item.children.length<1"> 
+                    <template v-if="item.children.length<1">
                         <el-menu-item :index="item.url" :key="index+'item'">
                             <!-- <img :src="item.unselected" class="na_unselected">
                             <img :src="item.selected" class="na_selected"> -->
@@ -67,7 +67,7 @@
                 child:[],
                 permission_routers:[
                     {
-                        name:'测试列表',
+                        name:'硬件测试',
                         path:'/dashboard',
                         icon:'ios-apps',
                         children:[],
@@ -75,7 +75,7 @@
                         unselected:"@/assets/images/icon/nav_icon_01.png",
                         selected:"@/assets/images/icon/nav_icon_01_selected.png",
                     },{
-                        name:'模型列表',
+                        name:'模型',
                         path:'/ModelRelease',
                         icon:'logo-buffer',
                         children:[],
@@ -114,10 +114,13 @@
                 getMenuItems({})
                 .then(res=>{
                     res.data.forEach(dataItem => {
+                      console.log(res.data)
                         this.permission_routers.forEach(item=>{
-                            if (item.name == '模型列表'){
+                          // console.log(item.name)
+                            if (item.name==='模型'){
                                 item.children = [];
                                 item.children.push(dataItem);
+                                // console.log(item.name)
                             }
                         })
                         this.$store.commit("user/SET_MENU",this.permission_routers);

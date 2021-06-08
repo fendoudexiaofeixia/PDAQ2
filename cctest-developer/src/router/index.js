@@ -31,7 +31,7 @@ const routes = [
           },
           {
               path:'/ModelRelease',
-              name:'模型列表',
+              name:'模型',
               component:modelList,
                 meta: {
                     requireAuth: true,

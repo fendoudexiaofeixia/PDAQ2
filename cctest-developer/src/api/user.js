@@ -1,8 +1,8 @@
 import request from '@/utils/request'
 
-export function getInfo(params,data) {
+export function search_pdaq(params,data) {
     return request({
-        url: '/program/get_info',
+        url: '/api/search',    //实现后台检索功能
         method: 'get',
         params,
         data
@@ -10,7 +10,7 @@ export function getInfo(params,data) {
 }
 export function searchRecords(params,data) {
     return request({
-        url: '/program/get_records',
+        url: '/api/filter/',    //检索后端符合要求的PDAQ数据,此功能放弃，因目前实力不够，无法完成开发，等下一版本
         method: 'get',
         params,
         data
@@ -20,7 +20,7 @@ export function searchRecords(params,data) {
 
 export function getRecords(data) {
     return request({
-        url: '/api/pdaq',     //自定义功能
+        url: '/api/pdaq',     //自定义功能   获取全部的 pdaq 列表信息
         method: 'get',
         data
     })

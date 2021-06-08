@@ -103,7 +103,7 @@
                 .then(res=>{
                     this.folder = [];
                     res.data.forEach(item => {
-                        if(item.indexOf('.py')!=-1){
+                        if(item.indexOf('.py')!==-1){
                             item = 'PY';
                             this.folder[1] = this.folder [0];
                             this.folder[0] = 'PY';
@@ -118,7 +118,7 @@
         },
         watch: {
             '$route' (to, from) { //监听路由是否变化
-                if(to.params.date != from.params.date){
+                if(to.params.date !== from.params.date){
                     this.init();//重新加载数据
                 }
             }

@@ -4,7 +4,7 @@
             <div class="contrast-top-content">
                  <Collapse v-model="test1" class="history-collapse">
                     <Panel name="1">
-                        <h3>历史版本通过率对比</h3>
+                        <h3>测试数据对比</h3>
                         <el-card class="box-card history-card" slot="content"  shadow="hover">
                             <div id="history" class="history"></div>
                         </el-card>

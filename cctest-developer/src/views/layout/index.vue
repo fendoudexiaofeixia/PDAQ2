@@ -4,7 +4,7 @@
             <div class="side-top">
                 <img src="../../assets/images/logo/whiteshort1.png">
                 <h4>
-                    测试管理平台
+                    测试管理信息平台
                 </h4>
             </div>
         </div>
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-    import sideBar from "./components/sideBar"
+    import sideBar  from "./components/sideBar"
     export default {
         name: "index",
         data(){

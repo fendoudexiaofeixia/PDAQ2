@@ -27,7 +27,7 @@ class Config_Message(models.Model):
     # product_time = models.CharField(max_length=8, verbose_name='出厂日期')
     create_time = models.DateTimeField(verbose_name='出厂日期')
     # add_time = models.DateTimeField(auto_now=True, verbose_name='添加时间')
-    camera_model = models.PositiveIntegerField(default=camera_model, choices=MODELS_ITEMS, verbose_name='相机模式')
+    camera_model = models.IntegerField(default=camera_model, choices=MODELS_ITEMS, verbose_name='相机模式')
     Serial_number = models.CharField(max_length=50, unique=True, verbose_name='序列号')
     unique_serial = models.CharField(max_length=5, unique=True, verbose_name='唯一序列号')
     resolution = models.CharField(max_length=10, blank=True, null=True, verbose_name='相机分辨率', default='1280x1080')
