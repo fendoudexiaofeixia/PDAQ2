@@ -1,0 +1,10 @@
+{
+  "vbox_located":"no_used",
+  "calmcar_located":"no_used",
+  "config_mathod":["mode_configuration","system_configuration_only"],
+  "machine_mode":["相机模式（01）","前视模式（02）","相机+前视（03）","环视（04）","后视（05）","BSD（06）"],
+  "gather_method":["order_alone","set1_ZF","set2_SQ2in1ands6","set3_sdk"],
+  "fcm_method":["order_alone","set1_12fps","set2_15fps"],
+  "system_method":["add_in_cloud","modify_in_cloud"],
+  "CaA_list_path":"/home/calmcar/PycharmProject/PDAQ2/automatic_configuration_tool/demand/customer_and_machine_list.xlsx"
+}

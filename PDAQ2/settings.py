@@ -78,7 +78,7 @@ ROOT_URLCONF = 'PDAQ2.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['cctest-developer/dist']
+        'DIRS': [os.path.join(BASE_DIR, '/static/')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -139,10 +139,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
-STATICFILES_DIRS = [
-    'cctest-developer/dist/static/'
-]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATICFILES_DIRS = [
+#     'cctest-developer/dist/static/'
+# ]
 
 '''配置文件上传路径'''
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

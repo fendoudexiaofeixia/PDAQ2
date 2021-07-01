@@ -21,9 +21,11 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from django.contrib import staticfiles
 from PDAQ2 import settings
-from PDAQ_hdtest.apis import PDAQ_list, PDAQList, filter_pdaq, search_pdaq, CustomMessage, Soft_config,get_nav
+from PDAQ_hdtest.apis import PDAQ_list, PDAQList, filter_pdaq, search_pdaq, CustomMessage, Soft_config, get_nav
 from PDAQ_hdtest.views import hwtest_list
 from django.views.generic.base import TemplateView
+
+from config_message.views import update_platform
 
 urlpatterns = [
     path('admin/', xadmin.site.urls),
@@ -32,7 +34,8 @@ urlpatterns = [
     re_path(r'^api/search', search_pdaq, name='serach_pdaq'),
     re_path(r'^api/custom', CustomMessage, name='custom_message'),
     re_path(r'^api/soft', Soft_config, name='soft_config'),
-    re_path(r'^model/get_nav',get_nav,name='get_nav'),
+    re_path(r'^model/get_nav', get_nav, name='get_nav'),
     re_path(r"media/(?P<path>.*)$", serve, {'document_root': settings.MEDIA_ROOT}),
+    # re_path(r'update_platform', update_platform),
 ]
 urlpatterns += staticfiles_urlpatterns()

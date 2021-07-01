@@ -1,0 +1,15 @@
+工具:自动化配置
+模块:
+1. 采集
+2. fcm
+3. 系统
+3.1 分配设备号--客户编号, 设备后3位
+    把现有的客户名称, 现有的设备好存入数据库(88服务器建一个表格-PMS)
+    表格-- 客户编号/设备编号
+3.2 注册云平台
+    ip, 公司, 设备编号往上填就行
+
+/Software/PMS
+PMS--grabcom.py 列出公司编号
+http://git.calmcar.com/cctest/PMS/blob/master/uploaddata.py
+

@@ -62,7 +62,7 @@ def Soft_config(request):
 @api_view()
 def get_nav(request):
     # test_model = '模型'
-    return Response(data=[{'name': '模型'}])
+    return Response(data=[{'name': '导航', 'children': '子类'}])
 
 
 '''
