@@ -10,6 +10,7 @@ from django.utils.html import format_html
 
 import config_message
 from config_message.models import Config_Message
+# from config_message.views import jug_online
 
 
 class ConfigForm(forms.ModelForm):
@@ -27,6 +28,8 @@ class ConfigForm(forms.ModelForm):
         self.fields['Serial_number'].help_text = format_html(
             '<p style="color: red;"> {} !</p>'.format(self.fields['Serial_number'].help_text)
         )
+    # a = jug_online()
+    # print(a)
 
     class Meta:
         model = Config_Message
@@ -36,9 +39,11 @@ class ConfigForm(forms.ModelForm):
 @xadmin.sites.register(Config_Message)
 class ConfigAdmin(object):
     list_display = (
-        'IP_address', 'Serial_number', 'camera_model', 'unique_serial', 'program_version', 'create_time'
+        'IP_address', 'Serial_number', 'product_name', 'product_status', 'camera_model', 'unique_serial',
+        'program_version', 'create_time'
     )
     ordering = ('unique_serial',)
     '''快速显示详情的字段'''
     show_detail_fields = ('Serial_number',)
     form = ConfigForm
+

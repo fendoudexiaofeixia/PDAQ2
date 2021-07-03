@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'django_cleanup.apps.CleanupConfig',
-    'dal',  # 自动补全插件
+    # 'dal',  # 自动补全插件
     # 'PIL',
     'reversion',
     'stdimage',

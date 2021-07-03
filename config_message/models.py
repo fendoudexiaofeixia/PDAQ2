@@ -1,3 +1,5 @@
+import os
+
 from django.db import models
 
 # Create your models here.
@@ -20,10 +22,26 @@ class Config_Message(models.Model):
         (back_forward, '后视（05）'),
         (BSD, 'BSD（06）'),
     }
+    calmcar = 1
+    vbox = 2
+    NAME_ITEMS = {
+        (calmcar, 'calmcar'),
+        (vbox, 'vbox')
+    }
+    production = 1
+    test = 2
+    develop = 3
+    STATUS_ITEMS = {
+        (production, '生产模式'),
+        (test, '测试'),
+        (develop, '开发模式')
+    }
     # hard_number = models.CharField(max_length=5, verbose_name='硬件版本', )
     IP_address = models.OneToOneField(PDAQ_hd, on_delete=models.PROTECT, verbose_name='IP地址', related_name='ip_address')
-    custom = models.ForeignKey(Custom, related_name='custom', verbose_name='客户', on_delete=False,
+    custom = models.ForeignKey(Custom, related_name='custom', verbose_name='客户', on_delete=models.CASCADE,
                                db_constraint=False)
+    product_name = models.IntegerField(verbose_name='产品名称', default=vbox, choices=NAME_ITEMS)
+    product_status = models.IntegerField(default=production, choices=STATUS_ITEMS, verbose_name='产品状态')
     # product_time = models.CharField(max_length=8, verbose_name='出厂日期')
     create_time = models.DateTimeField(verbose_name='出厂日期')
     # add_time = models.DateTimeField(auto_now=True, verbose_name='添加时间')
