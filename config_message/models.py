@@ -1,5 +1,4 @@
-import os
-
+from django.core.cache import cache
 from django.db import models
 
 # Create your models here.
@@ -52,9 +51,18 @@ class Config_Message(models.Model):
     camera_num = models.CharField(max_length=3, blank=True, null=True, verbose_name='相机数量', default=6)
     image_format = models.CharField(max_length=10, blank=True, null=True, verbose_name='图像格式', default='YUYV')
     program_version = models.CharField(max_length=50, blank=True, null=True, verbose_name='程序版本')
+    online_status = models.CharField(max_length=10, null=True, blank=True, verbose_name='在线状态', default='离线')
 
     def __str__(self):
         return self.Serial_number
 
     class Meta:
         verbose_name_plural = verbose_name = '软件配置信息'
+
+    @classmethod
+    def ip_set(cls):
+        result = cache.get('ip_set')
+        if not result:
+            set_ip = cls.objects.get_queryset().values('IP_address__IP_address')
+            cache.set('ip_set', set_ip, 60 * 60)
+        return result

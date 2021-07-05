@@ -6,11 +6,13 @@ from django import forms
 from django.contrib import admin
 
 # Register your models here.
+from django.core.cache import cache
 from django.utils.html import format_html
 
 import config_message
+from Custom.models import Custom
 from config_message.models import Config_Message
-# from config_message.views import jug_online
+from config_message.views import jug_online
 
 
 class ConfigForm(forms.ModelForm):
@@ -28,8 +30,6 @@ class ConfigForm(forms.ModelForm):
         self.fields['Serial_number'].help_text = format_html(
             '<p style="color: red;"> {} !</p>'.format(self.fields['Serial_number'].help_text)
         )
-    # a = jug_online()
-    # print(a)
 
     class Meta:
         model = Config_Message
@@ -40,10 +40,22 @@ class ConfigForm(forms.ModelForm):
 class ConfigAdmin(object):
     list_display = (
         'IP_address', 'Serial_number', 'product_name', 'product_status', 'camera_model', 'unique_serial',
-        'program_version', 'create_time'
+        'program_version', 'create_time', 'online_colour'
     )
     ordering = ('unique_serial',)
     '''快速显示详情的字段'''
     show_detail_fields = ('Serial_number',)
     form = ConfigForm
+    readonly_fields = ['online_status']
 
+    def online_colour(self, obj):
+        if obj.online_status == '在线':
+            # print('*******', obj.test_result)
+            color_code = 'green'
+        else:
+            color_code = 'red'
+        return format_html(
+            '<span style="color:{};">{}</span>', color_code, obj.online_status
+        )
+
+    online_colour.short_description = '在线状态'

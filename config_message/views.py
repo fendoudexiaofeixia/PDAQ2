@@ -1,10 +1,14 @@
 import os
+import platform
 
 import django.db.models.signals
-from django.core.signals import request_started
+from django.core.cache import cache
+from django.core.signals import request_finished, request_started
 from django.dispatch import receiver
-
+from apscheduler.scheduler import Scheduler
 # Create your views here.
+from django.utils.html import format_html
+
 from cloud_plaform.pdaq_update import pdaq_process
 from config_message.models import Config_Message
 from cloud_plaform.cloud_platform import cloud_platform, start_update
@@ -23,34 +27,62 @@ from cloud_plaform.cloud_platform import cloud_platform, start_update
 """
 
 
+@receiver(django.db.models.signals.post_init, sender=Config_Message)
+def init_serialnumber(instance, **kwargs):
+    instance.__original_Serial_number = instance.Serial_number
+
+
 @receiver(django.db.models.signals.post_save, sender=Config_Message)
-def update_platform(sender, instance, **kwargs):
-    # print('++++++++++++', sender, instance)
-    pdaq_message = Config_Message.objects.filter(Serial_number=instance).values('IP_address__IP_address',
-                                                                                'Serial_number', 'camera_model',
-                                                                                'custom__shorthand', 'custom__name',
-                                                                                )
-    pro_name = Config_Message.objects.get(Serial_number=instance).get_product_name_display()
-    pro_stat = Config_Message.objects.get(Serial_number=instance).get_product_status_display()
-    cloud_msg = [i for i in pdaq_message][0]
-    cloud_msg['product_name'], cloud_msg['product_status'] = pro_name, pro_stat
-    print(cloud_msg)
-    # 首先查询平台是否存在设备
-    # start_update(cloud_msg['custom__name'], cloud_msg['IP_address__IP_address'], cloud_msg['product_name'],
-    #              cloud_msg['Serial_number'], cloud_msg['product_status'])
-    # pdaq_process('192.168.196.220', cloud_msg['Serial_number']).update_pdaq_json()
-    # start_main(i['IP_address__IP_address'], i['camera_model'], i['Serial_number'], i['custom__name'])
+def update_platform(sender, instance, created,**kwargs):
+    if not created and instance.__original_Serial_number != instance.Serial_number:
+        print('++++++++++++', sender, instance)
+        pdaq_message = Config_Message.objects.filter(Serial_number=instance).values('IP_address__IP_address',
+                                                                                    'Serial_number', 'camera_model',
+                                                                                    'custom__shorthand', 'custom__name',
+                                                                                    )
+        pro_name = Config_Message.objects.get(Serial_number=instance).get_product_name_display()
+        pro_stat = Config_Message.objects.get(Serial_number=instance).get_product_status_display()
+        cloud_msg = [i for i in pdaq_message][0]
+        cloud_msg['product_name'], cloud_msg['product_status'] = pro_name, pro_stat
+        # print(cloud_msg)
+        # 首先查询平台是否存在设备
+        # start_update(cloud_msg['custom__name'], cloud_msg['IP_address__IP_address'], cloud_msg['product_name'],
+        #               cloud_msg['Serial_number'], cloud_msg['product_status'])
+        # pdaq_process(cloud_msg['IP_address__IP_address'], cloud_msg['Serial_number']).update_pdaq_json()
+        # start_main(i['IP_address__IP_address'], i['camera_model'], i['Serial_number'], i['custom__name'])
 
 
-# @receiver(request_started)
-# def jug_online(**kwargs):
-#     product = Config_Message.objects.get_queryset().values('IP_address__IP_address')
-#     pro_list = [i for i in product]
-#     for pdaq in pro_list:
-#         # print(pdaq['IP_address__IP_address'])
-#         res = os.system('fping {} -c 1 -t 50>> /dev/null'.format(pdaq['IP_address__IP_address']))
-#         # print(**kwargs)
-#         if res == 0:
-#             return '在线'
-#         else:
-#             return '离线'
+# 自动定期执行任务，用来判断设备是否在线，将结果写入到 redis 中
+sch = Scheduler()
+
+
+def jug_online():
+    # set_ip = Config_Message.objects.get_queryset().values('IP_address__IP_address')
+    set_ip = Config_Message.ip_set()
+    for ip in set_ip:
+        IP = ip['IP_address__IP_address']
+        # print(IP)
+        visit_IP = os.popen('ping -c 1 %s' % IP)
+        result = visit_IP.read()
+        visit_IP.close()
+        obj = Config_Message.objects.get(IP_address__IP_address=IP)
+        if 'ttl' in result:
+            # cache.set('{}'.format(IP), '在线', 60)
+            obj.online_status = '在线'
+            obj.save()
+
+        else:
+            # cache.set('{}'.format(IP), '离线', 60)
+            obj.online_status = '离线'
+            obj.save()
+
+            # print(cache.get('{}'.format(IP)))
+            # print(('{}'.format(IP)))
+
+
+@sch.interval_schedule(seconds=10)
+def my_task():
+    jug_online()
+
+
+sch.start()
