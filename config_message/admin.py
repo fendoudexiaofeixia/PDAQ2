@@ -30,6 +30,7 @@ class ConfigForm(forms.ModelForm):
         self.fields['Serial_number'].help_text = format_html(
             '<p style="color: red;"> {} !</p>'.format(self.fields['Serial_number'].help_text)
         )
+        print([i for i in xadmin.sites.register(Config_Message)])
 
     class Meta:
         model = Config_Message
@@ -59,3 +60,4 @@ class ConfigAdmin(object):
         )
 
     online_colour.short_description = '在线状态'
+    # print(xadmin.AdminSite().urls)

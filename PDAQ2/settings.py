@@ -36,6 +36,7 @@ CORS_ALLOW_HEADERS = ('*',)
 # Application definition
 
 INSTALLED_APPS = [
+    'django_filters',
     'rest_framework',
     'corsheaders',
     'django_cleanup.apps.CleanupConfig',
@@ -119,6 +120,11 @@ SESSION_CACHE_ALIAS = "default"
 REDIS_TIMEOUT = 7 * 24 * 60 * 60
 CUBES_REDIS_TIMEOUT = 60 * 60
 NEVER_REDIS_TIMEOUT = 365 * 24 * 60 * 60
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.AutoSchema',
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

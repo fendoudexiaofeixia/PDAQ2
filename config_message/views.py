@@ -27,13 +27,15 @@ from cloud_plaform.cloud_platform import cloud_platform, start_update
 """
 
 
+# 在项目进行初始化的时候，对目标字段进行缓存
 @receiver(django.db.models.signals.post_init, sender=Config_Message)
 def init_serialnumber(instance, **kwargs):
     instance.__original_Serial_number = instance.Serial_number
 
 
+# 若上面的函数缓存的初始值没有变化，则不会触发下面的函数，否则在进行保存提交的时候，会触发此函数，并同步更新云平台
 @receiver(django.db.models.signals.post_save, sender=Config_Message)
-def update_platform(sender, instance, created,**kwargs):
+def update_platform(sender, instance, created, **kwargs):
     if not created and instance.__original_Serial_number != instance.Serial_number:
         print('++++++++++++', sender, instance)
         pdaq_message = Config_Message.objects.filter(Serial_number=instance).values('IP_address__IP_address',
@@ -53,6 +55,8 @@ def update_platform(sender, instance, created,**kwargs):
 
 
 # 自动定期执行任务，用来判断设备是否在线，将结果写入到 redis 中
+
+
 sch = Scheduler()
 
 
@@ -79,10 +83,9 @@ def jug_online():
             # print(cache.get('{}'.format(IP)))
             # print(('{}'.format(IP)))
 
-
-@sch.interval_schedule(seconds=10)
-def my_task():
-    jug_online()
-
-
-sch.start()
+# @sch.interval_schedule(seconds=10)
+# def my_task():
+#     jug_online()
+#
+#
+# sch.start()
